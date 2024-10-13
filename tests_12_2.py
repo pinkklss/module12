@@ -38,6 +38,23 @@ class TournamentTest(unittest.TestCase):
         self.assertEqual(last_runner, self.usain.name)
         self.all_results['Усэйн, Андрей и Ник'] = result
 
+    def test_tournament_order(self):
+        tournament = Tournament(90, self.usain, self.andrey, self.nick)
+        results = tournament.start()
+        self.assertEqual(list(results.keys()), [1, 2, 3])
+        self.assertEqual(results[1].name, "Усэйн")
+        self.assertEqual(results[2].name, "Андрей")
+        self.assertEqual(results[3].name, "Ник")
+        self.all_results['test_tournament_order'] = results
+
+    def test_tournament_results(self):
+        tournament = Tournament(90, self.usain, self.andrey, self.nick)
+        results = tournament.start()
+        self.assertIn(1, results)
+        self.assertIn(2, results)
+        self.assertIn(3, results)
+        self.all_results['test_tournament_results'] = results
+    
     @classmethod
     def tearDownClass(cls):
         for key in cls.all_results:
